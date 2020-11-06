@@ -7,55 +7,32 @@
   </head>
   <body id="produkter">
     <div id="wrapper">
-      
-      <?php
+    <?php
 		require "masthead.php";
 		require "menu.php";
-		require "../html/varor.php";
-		
-		?>	
-		
-		
-		
-		<main> <!--Huvudinnehåll-->
+		require "varor.php";
+	?>		
+		<main> 
 			<section id="content">
 				<h2>Varor</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Namn</th>
-							<th>Beskrivning</th>
-							<th>Bild</th>
-							<th>Pris</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					 <?php
-			   		 foreach($varor as $vara){
+					<?php
+					while($row=$result->fetch_assoc()) {
 						echo "<tr><td>";
-						echo $vara[0];
+						echo $row["name"];
 						echo "</td><td>";
-					    echo $vara[1];
-						echo "</td><td><img src='";
-					    echo $vara[3];
-						echo "'alt='";
-						echo $vara[1];
+						echo $row["description"];
+						echo "</td><td>";
+						echo "<img src='";
+						echo $row["picture"];
 						echo "'></td><td>";
-						echo $vara[2];
+						echo $row["price"];
 						echo "</td></tr>";
-
-
-					 }
-					?>	
-					</tbody>
-				</table>
-
+					}	
+				?>
 			</section>
 		</main>
-	
 		<?php
-		require "footer.php";
+			require "footer.php";
 		?>
 	</div>
   </body>
