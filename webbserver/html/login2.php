@@ -19,17 +19,17 @@
 	if(!$row){
 		header("Location:login.php?status=1");
 	}
-		else{
-			if($password === $row['password'])
-				session_start();
-				$_SESSION['username']=$username;
-				$_SESSION['status']=$row['status'];
-				header("Location:admin.php");
+	else{
+		if($password === $row['password']){
+			session_start();
+			$_SESSION['username']=$username;
+			$_SESSION['status']=$row['status'];
+			header("Location:admin.php");
 		}
 		else{
 			header("Location:login.php?status=2");
 		}
-	
+	}
 	
 	echo $username;
 	echo "<br>";

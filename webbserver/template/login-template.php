@@ -1,5 +1,5 @@
 <?php
-$str="":
+$str="";
 if(isset($_GET['status'])){
 	if($_GET['status']==1){
 		$str="Felaktig användare";

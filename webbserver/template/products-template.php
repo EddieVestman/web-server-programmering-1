@@ -1,5 +1,4 @@
 <?php
-
 require "../includes/connect.php";
 
 $sql="SELECT * FROM products";
@@ -9,8 +8,6 @@ $res->execute();
 $result=$res->get_result();
 $dbh->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="sv">
