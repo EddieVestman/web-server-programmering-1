@@ -1,3 +1,15 @@
+<?php
+
+require "../includes/connect.php";
+
+$sql="SELECT * FROM products";
+
+$res=$dbh->prepare($sql);
+$res->execute();
+$result=$res->get_result();
+$dbh->close();
+?>
+
 <!DOCTYPE html>
 <html lang="sv">
   <head>
@@ -10,27 +22,26 @@
 			<?php
 		require "masthead.php";
 		require "menu.php";
-		require "varor.php";
+		//require "varor.php";
 		
 		?>	
 			
 			<main> <!--Huvudinnehåll-->
 				<section id="content">
 					<h2>Varor</h2>
-					
 					<?php
 				while($row=$result->fetch_assoc()) {
-					echo "<tr><td>";
-					echo $row["name"];
-					echo "</td><td>";
-					echo $row["description"];
-					echo "</td><td>";
-					echo "<img src='";
-					echo $row["picture"];
-					echo "'></td><td>";
-					echo $row["price"];
-					echo "</td></tr>";
-				}	
+					echo <<<FIGURE
+					<figure>
+						<img src="{$row['picture']}" alt="{$row['description']}">
+						<figcaption>{$row['name']} {$row['price']}
+							<p>
+								<a href="#">Köp</a>
+							</p>
+						</figcaption>
+					</figure>
+FIGURE;
+				}
 			?>
             
 			</section>
