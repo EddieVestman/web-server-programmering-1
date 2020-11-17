@@ -24,7 +24,7 @@
 			session_start();
 			$_SESSION['username']=$username;
 			$_SESSION['status']=$row['status'];
-			header("Location:admin.php");
+			header("Location:products.php");
 		}
 		else{
 			header("Location:login.php?status=2");
