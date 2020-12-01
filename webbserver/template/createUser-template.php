@@ -1,3 +1,60 @@
+<?php
+ if(isset($_POST['fnamn'] )&& isset($_POST['enamn'])&&isset $_POST['mail']) &&isset $_POST['adress']) && isset$_POST['zip'])&& isset$_POST['ort'])&& isset$_POST['nummer']) ))
+$fnamn = filter_input(INPUT_POST,'fname', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+$enamn = filter_input(INPUT_POST,'enamn', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+$mail = filter_input(INPUT_POST,'mail', FILTER_SANITIZE_EMAIL, FILTER_FLAG_STRIP_LOW);
+$adress = filter_input(INPUT_POST,'adress', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+$zip = filter_input(INPUT_POST,'zip', FILTER_SANITIZE_NUMBER_INT);
+$ort = filter_input(INPUT_POST,'ort', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+$nummer = filter_input(INPUT_POST,'nummer', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+
+
+ $sql="SELECT * FROM users WHERE username = ? OR email = ?";
+ $res=$dbh->prepare($sql);
+ $res->bind_param("ss",$username, $mail);
+ $res->execute();
+ $result=$res->get_result();
+ $row=$resuly->fetch_assoc();
+ 
+ require "../includes/connect.php";
+ 
+ 
+ if($row !== NULL)
+ {
+	 if($row['username']=== $username){
+		 header("location:createUser.php?name=$username");
+	 }
+	 
+	 elseif($row['email'] === $mail){
+		 header("location:createUser.php?mail=$mail");
+	 }
+ }
+ 
+ $str="";
+ 
+ if(isset($_GET['name'])){
+	 $usr=$_GET['name'];
+	 $str="Användarnamnet $usr är upptaget";
+ }
+ elseif(isset($_GET['mail'])){
+	$ma=$_GET['mail'];
+	$str="Mailadressen $ma är upptagen";
+ }
+	else
+	{
+		$staus =1;
+		$sql="INSERT INTO users(username, email, passowrd, status) VALUE (?,?,?,?)";
+		$res=$dbh->prepare($sql);
+		$res->bind_param("sssi",$username, $mail, $password, $status);
+		$res->execute();
+		
+		$sql = "INSERT INTO customers(username, firstname, lastname, adress, zip, city, phone) VALUE (?,?,?,?,?,?,?)";
+		$res=$dbh->prepare($sql);
+	}
+
+?>
+
+
 <!DOCTYPE html>
 
 <html lang="sv">
@@ -20,9 +77,11 @@
 		
 			<main> <!--Huvudinnehåll-->
 				<section>
-		 <form action="login2.php" method="post">
-            <p><label for="fname">Förnamn:</label>
-            <input type="text" id="fname" name="fname"></p>
+					<?php echo $str; ?> 
+						 
+			<form action="login2.php" method="post">
+            <p><label for="fnamn">Förnamn:</label>
+            <input type="text" id="fname" name="fnamn"></p>
 			<p><label for="enamn">Efternamn:</label>
 			<input type="text" id="ename" name="ename"></p>
 			<p><label for="mail">Epost:</label>
