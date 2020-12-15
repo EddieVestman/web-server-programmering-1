@@ -1,21 +1,14 @@
 <?php
-$str="";
-if(isset($_GET['status'])){
-	if($_GET['status']==1){
-		$str="Felaktig användare";
+	$str="";
+	if(isset($_GET["status"])){
+		if($_GET["status"]==1){
+			$str="Felaktigt användare";
+		}
+		elseif($_GET["status"]==2){
+			$str="Felaktigt användare";
+		}
 	}
-	elseif($_GET['status']==2){
-		$str="Felaktigt lösenord";
-	}
-}
-
-
-
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 
@@ -28,11 +21,10 @@ if(isset($_GET['status'])){
 	</head>
   <body id="login">
     <div id="wrapper">
-     	<?php
+      <?php
 		require "masthead.php";
 		require "menu.php";
-		
-		?>	
+		?>
 		
 			<main> <!--Huvudinnehåll-->
 				<section>
@@ -50,9 +42,9 @@ if(isset($_GET['status'])){
 			</main>
 
     </div>
-    <?php
+    <?php	
 		require "footer.php";
-		?>
+	?>
 
 	</body>
 </html>
